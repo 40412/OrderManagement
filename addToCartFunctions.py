@@ -30,7 +30,7 @@ def add_button_clicked(win):
         messagebox.showinfo("Products added", "Products were added to cart")
 
 def update_cart_sum(label, win):
-    label.config(text="Total sum: $" + str(win.total_sum))
+    label.config(text="Total sum: $" + str(win.total_sum)) # Sets the text of the label in UI
     
 def remove_from_cart(win):
     lbox = win.list_of_products

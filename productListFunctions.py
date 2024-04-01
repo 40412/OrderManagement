@@ -20,7 +20,7 @@ def create_all_products_list():
         product = prod.Product(product_name, product_price)
         products_list.append(product)
 
-    sorted_list = sorted(products_list, key=lambda x: x.name)
+    sorted_list = sorted(products_list, key=lambda x: x.name) # sorts the list by name
     return sorted_list
 
 def search_button_clicked(win):
@@ -29,7 +29,7 @@ def search_button_clicked(win):
     observable = win.observable_list_objects
     entry = search_bar.get().lower()
     products_file = open("initialProducts","r")
-    lines = products_file.readlines()
+    lines = products_file.readlines() # saves the file in the variable lines
     products_file.close()
     list_items.clear()
 
@@ -41,15 +41,16 @@ def search_button_clicked(win):
 
         if entry != "" and entry != " ":
             
-            if entry in product.get_product_name().lower():
+            if entry in product.get_product_name().lower(): # adds only products that have the search string
                 list_items.append(product)
 
         else:
-            list_items.append(product)
+            list_items.append(product) # if nothing is searched it lists all products
 
     list_items = sorted(list_items, key=lambda x: x.name)
     update_product_list(list_items, observable)
 
+# updates the list that is shown in the UI
 def update_product_list(list, observable):
     observable.set(list)
 
