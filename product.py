@@ -31,3 +31,18 @@ class Product:
 
     def set_unit_price(self, price):
         self.unit_price = price
+
+    @staticmethod
+    def get_selected_products():
+        from addToCartFunctions import added_products
+        
+        selected_products = []
+        with open("initialproducts", "r") as file:
+            for line in file:
+                name, price = line.strip().split(",")
+                product = Product(name, price)
+                if product in added_products:
+                    selected_products.append(product)
+        return selected_products
+
+

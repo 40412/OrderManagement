@@ -8,6 +8,8 @@ import addToCartFunctions as add_cart
 import showCartFunctions as showcart
 import modifyProductList as mp
 from tkinter import ttk
+from tkinter import messagebox
+from product import Product
 
 class MyWindow(ttk.Frame):
     """Defines the buttons and text inside the graphical user interface window"""
@@ -51,12 +53,30 @@ class MyWindow(ttk.Frame):
         self.remove_products_button = ttk.Button(text="Remove", 
                                                 command=lambda: mp.remove_products(self))
 
+        self.save_order_button = ttk.Button(win, text="Send Order", 
+                                    command=lambda: self.save_order_and_show_message())
+        self.save_order_button.place(x=600, y=500)
+
     def set_total_sum(self, sum):
         self.total_sum = sum
 
     def get_total_sum(self):
         return self.total_sum
+    
+    def save_order(self, order_items):  
+        with open("order.txt", "w") as file:
+            for index, item in enumerate(order_items, start=1):
+                file.write(f"Product {index}: {item.get_product_name()} - Price: {item.get_unit_price()}$\n")
 
+    def save_order_and_show_message(self):
+        order = self.generate_order()  
+        self.save_order(order) 
+        messagebox.showinfo("Order sent", "Your order has been sent successfully!")
+
+    def generate_order(self):
+        selected_products = Product.get_selected_products()
+        return selected_products
+    
 window = tk.Tk()
 ui = MyWindow(window)
 window['background'] = '#A9D6E5'
