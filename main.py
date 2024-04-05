@@ -20,22 +20,22 @@ class LoginWindow(ttk.Frame):
         ttk.Frame.__init__(self)
         
         self.username_label = ttk.Label(win, text="Username:")
-        self.username_label.grid(row=0, column=0, pady=10)
+        self.username_label.place(x=50, y=50)
         
         self.username_entry = ttk.Entry(win)
-        self.username_entry.grid(row=0, column=1, pady=5)
+        self.username_entry.place(x=150, y=50)
         
         self.password_label = ttk.Label(win, text="Password:")
-        self.password_label.grid(row=1, column=0, pady=10)
+        self.password_label.place(x=50, y=80)
         
         self.password_entry = ttk.Entry(win, show="*")
-        self.password_entry.grid(row=1, column=1, pady=5)
+        self.password_entry.place(x=150, y=80)
         
         self.login_button = ttk.Button(win, text="Login", command=self.login)
-        self.login_button.grid(row=2, column=0, pady=20)
+        self.login_button.place(x=100, y=120)
         
         self.register_button = ttk.Button(win, text="Register", command=self.register)
-        self.register_button.grid(row=2, column=1, pady=10)
+        self.register_button.place(x=200, y=120)
         
         self.login_successful = False  # Initialize login_successful attribute
 
@@ -43,37 +43,39 @@ class LoginWindow(ttk.Frame):
         self.success_message = tk.StringVar()
 
         self.error_label = ttk.Label(win, textvariable=self.error_message)
+        
         self.success_label = ttk.Label(win, textvariable=self.success_message)
 
     def login(self):
-        self.error_label.grid_remove()  # Remove error label
-        self.success_label.grid_remove()  # Remove success label
+        self.error_label.place_forget()  # Remove error label
+        self.success_label.place_forget()  # Remove success label
 
         username = self.username_entry.get()
         password = self.password_entry.get()
-        
+    
         authenticated = UserManager.authenticate_user(username, password)
-        
+    
         if authenticated:
             self.login_successful = True  # Set login_successful to True
             MyWindow(self.master)  # Show the main window
-            
+        
             # Hide the login widgets
-            self.username_label.grid_forget()
-            self.username_entry.grid_forget()
-            self.password_label.grid_forget()
-            self.password_entry.grid_forget()
-            self.login_button.grid_forget()
-            self.register_button.grid_forget()
-            
+            self.username_label.place_forget()
+            self.username_entry.place_forget()
+            self.password_label.place_forget()
+            self.password_entry.place_forget()
+            self.login_button.place_forget()
+            self.register_button.place_forget()
+        
         else:
             # Display an error message
             self.error_message.set("Invalid username or password")
-            self.error_label.grid(row=3, columnspan=2, pady=10)
+            self.error_label.place(x=100, y=170)
+
 
     def register(self):
-        self.error_label.grid_remove()  # Remove error label
-        self.success_label.grid_remove()  # Remove success label
+        self.error_label.place_forget()  # Remove error label
+        self.success_label.place_forget()  # Remove success label
     
         username = self.username_entry.get()
         password = self.password_entry.get()
@@ -82,7 +84,7 @@ class LoginWindow(ttk.Frame):
         
         # Display a success message
         self.success_message.set("Registration successful")
-        self.success_label.grid(row=3, columnspan=2, pady=10)
+        self.success_label.place(x=100, y=170)
 
 
 class MyWindow(ttk.Frame):
@@ -118,7 +120,7 @@ class MyWindow(ttk.Frame):
                                                  command=lambda: add_cart.remove_from_cart(self))
         self.login_button = ttk.Button(win, text="Log in as Admin", 
                                       command=lambda: mp.admin_log_in(self))
-        self.login_button.place(x=800, y=20)
+        self.login_button.place(x=920, y=20)
         self.add_label = tk.Label(win, text="Add new product")
         self.new_product_box = tk.Entry(win)
         self.price_box = tk.Entry(win)
@@ -130,7 +132,9 @@ class MyWindow(ttk.Frame):
         self.save_order_button = ttk.Button(win, text="Send Order", 
                                     command=lambda: self.save_order_and_show_message())
     
-
+        self.become_vip_button = ttk.Button(win, text="Become VIP", 
+                                            command=lambda: self.become_vip())
+        self.become_vip_button.place(x=790, y=20)
         
 
     def set_total_sum(self, sum):
@@ -150,6 +154,20 @@ class MyWindow(ttk.Frame):
     def generate_order(self):
         selected_products = Product.get_selected_products()
         return selected_products
+    
+    def become_vip(self):
+        UserManager.become_vip(1)  # Hardcoding user ID as 1 for demonstration purposes
+
+        # Apply 10% discount to the total sum
+        self.total_sum *= 0.9
+        self.total_sum_label.config(text="Total sum: $" + str(round(self.total_sum, 2)))
+
+        # Display message in the window
+        messagebox.showinfo("VIP Status", "You have become a VIP!\nYou get-10% discount at the shopping cart")
+
+        # Disable the "Become VIP" button
+        self.become_vip_button.config(state=tk.DISABLED)
+        self.become_vip_button.place_forget()
     
 if __name__ == "__main__":
     window = tk.Tk()
