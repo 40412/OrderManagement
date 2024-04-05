@@ -1,9 +1,11 @@
-# File name: addTCartFunctions.py
+# File name: addToCartFunctions.py
 # Author: Jasmin Fränti
 # Description: This file contains functionality to add products to shopping cart
 
 import productListFunctions as pf
 from tkinter import messagebox
+
+added_products = []
 
 def add_button_clicked(win):
     listbox = win.list_of_products
@@ -21,6 +23,7 @@ def add_button_clicked(win):
                 cart.append(object)
                 cart_total += float(object.get_unit_price())
                 cart_total = round(cart_total, 2)
+                added_products.append(object)
                 products_added = True
     
     win.total_sum = cart_total
@@ -30,7 +33,7 @@ def add_button_clicked(win):
         messagebox.showinfo("Products added", "Products were added to cart")
 
 def update_cart_sum(label, win):
-    label.config(text="Total sum: $" + str(win.total_sum)) # Sets the text of the label in UI
+    label.config(text="Total sum: $" + str(win.total_sum))
     
 def remove_from_cart(win):
     lbox = win.list_of_products
@@ -44,6 +47,7 @@ def remove_from_cart(win):
                 win.total_sum -= float(item.get_unit_price())
                 win.total_sum = round(win.total_sum, 2)
                 win.shopping_cart.remove(item)
+                added_products.remove(item)
 
     update_cart_sum(win.total_sum_label, win)
     pf.update_product_list(win.shopping_cart, win.observable_list_objects)
