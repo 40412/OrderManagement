@@ -1,3 +1,7 @@
+# File name: user.py
+# Author: Elina Maunula
+# Description: This file contains the class "UserManager"
+
 class UserManager:
     users = []
 
