@@ -27,12 +27,12 @@ def show_shopping_cart(win):
 
 def continue_shopping(win):
     wm.toggle_total_sum_label(win.total_sum_label, "off", win)
-    wm.show_widget(win.sort_button, 330, 18)
-    wm.show_widget(win.show_cart_button, 455, 500)
-    wm.show_widget(win.search_button, 220, 18)
-    wm.show_widget(win.add_button, 440, 18)
+    wm.show_widget(win.sort_button, 350, 20)
+    wm.show_widget(win.show_cart_button, 620, 20)
+    wm.show_widget(win.search_button, 250, 20)
+    wm.show_widget(win.add_button, 300, 600)
     wm.hide_widget(win.continue_button)
     wm.hide_widget(win.remove_from_cart_button)
-    wm.show_widget(win.login_button, 800, 0)
+    wm.show_widget(win.login_button, 920, 20)
     pf.update_product_list(win.list_items, win.observable_list_objects)
     wm.hide_widget(win.save_order_button)

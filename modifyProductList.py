@@ -19,9 +19,9 @@ def admin_log_in(win):
     win.price_box.insert(0, "Price")
     win.price_box.bind('<FocusIn>', lambda event: 
                              clear_entry(event, win.price_box))
-    wm.show_widget(win.save_button, 700, 350)
+    wm.show_widget(win.save_button, 750, 350)
     win.login_button.config(text="Log out", command=lambda: log_out(win))
-    wm.show_widget(win.remove_products_button, 455, 200)
+    wm.show_widget(win.remove_products_button, 650, 350)
     win.list_of_products.config(selectmode=tk.SINGLE)
 
 def log_out(win):
@@ -34,7 +34,6 @@ def log_out(win):
     win.login_button.config(text="Log in as Admin", command=lambda: admin_log_in(win))
     wm.hide_widget(win.remove_products_button)
     win.list_of_products.config(selectmode=tk.MULTIPLE)
-
 
 def save_button_clicked(win):
     name = win.new_product_box.get()
