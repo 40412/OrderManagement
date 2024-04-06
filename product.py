@@ -6,31 +6,31 @@
 class Product:
 
     def __init__(self, name, unit_price):
-        self.name = name
-        self.unit_price = unit_price
+        self.__name = name
+        self.__unit_price = unit_price
 
     def __eq__(self, other):
         if isinstance(other, Product):
-            return self.name == other.name and self.unit_price == other.unit_price
+            return self.__name == other.__name and self.__unit_price == other.__unit_price
         return False
 
 
     def __str__(self):
-        return self.name + "  " + self.unit_price + "$"
+        return self.__name + "  " + self.__unit_price + "$"
 
     """Getters and setters for all class attributes"""
     
     def get_product_name(self):
-        return self.name
+        return self.__name
     
     def get_unit_price(self):
-        return self.unit_price
+        return self.__unit_price
     
     def set_name(self, name):
-        self.name = name
+        self.__name = name
 
     def set_unit_price(self, price):
-        self.unit_price = price
+        self.__unit_price = price
 
     @staticmethod
     def get_selected_products():

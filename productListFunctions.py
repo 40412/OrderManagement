@@ -20,7 +20,7 @@ def create_all_products_list():
         product = prod.Product(product_name, product_price)
         products_list.append(product)
 
-    sorted_list = sorted(products_list, key=lambda x: x.name) # sorts the list by name
+    sorted_list = sorted(products_list, key=lambda x: x.get_product_name()) # sorts the list by name
     return sorted_list
 
 def search_button_clicked(win):
@@ -47,7 +47,7 @@ def search_button_clicked(win):
         else:
             list_items.append(product) # if nothing is searched it lists all products
 
-    list_items = sorted(list_items, key=lambda x: x.name)
+    list_items = sorted(list_items, key=lambda x: x.get_product_name())
     update_product_list(list_items, observable)
 
 # updates the list that is shown in the UI
@@ -57,14 +57,14 @@ def update_product_list(list, observable):
 def sort_product_list(win):
     list_items = win.list_items
     observable_list = win.observable_list_objects
-    is_sorted_ascending = all(list_items[i].name <= list_items[i + 1].name 
+    is_sorted_ascending = all(list_items[i].get_product_name() <= list_items[i + 1].get_product_name() 
                               for i in range(len(list_items) - 1))
     
     if is_sorted_ascending:
-        sorted_items = sorted(list_items, key=lambda x: x.name, reverse=True)
+        sorted_items = sorted(list_items, key=lambda x: x.get_product_name(), reverse=True)
 
     else:
-        sorted_items = sorted(list_items, key=lambda x: x.name)
+        sorted_items = sorted(list_items, key=lambda x: x.get_product_name())
     
     list_items.clear()
 
