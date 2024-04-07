@@ -10,7 +10,7 @@ import modifyProductList as mp
 from tkinter import ttk
 from tkinter import messagebox
 from product import Product
-from order import Order
+from order import Order, SpecialOrder
 from user import UserManager
 
 class LoginWindow(ttk.Frame):
@@ -138,7 +138,7 @@ class MyWindow(ttk.Frame):
         
 
     def set_total_sum(self, sum):
-        self.total_sum = sum
+        self.total_sum = round(sum, 2)
 
     def get_total_sum(self):
         return self.total_sum
@@ -149,18 +149,24 @@ class MyWindow(ttk.Frame):
         messagebox.showinfo("Order Saved", "Your order has been saved successfully!")
 
     def save_order_and_show_message(self):
-        self.save_order()
+        # Check if the user is a VIP
+        if UserManager.current_user['is_vip']:
+            order = SpecialOrder(self.shopping_cart)
+            order.save_order()
+            messagebox.showinfo("Order Saved", "Your order has been saved successfully! VIP discount applied.")
+        else:
+            self.save_order()
 
     def generate_order(self):
         selected_products = Product.get_selected_products()
         return selected_products
     
     def become_vip(self):
-        UserManager.become_vip(1)  # Hardcoding user ID as 1 for demonstration purposes
+        UserManager.become_vip(UserManager.current_user['id'])
 
         # Apply 10% discount to the total sum
-        self.total_sum *= 0.9
-        self.total_sum_label.config(text="Total sum: $" + str(round(self.total_sum, 2)))
+        # self.total_sum *= 0.9
+        # self.total_sum_label.config(text="Total sum: $" + str(round(self.total_sum, 2)))
 
         # Display message in the window
         messagebox.showinfo("VIP Status", "You have become a VIP!\nYou get-10% discount at the shopping cart")

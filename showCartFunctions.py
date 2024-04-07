@@ -5,6 +5,7 @@
 
 import addToCartFunctions as addcart
 import productListFunctions as pf
+from user import UserManager
 import widgetsManagement as wm
 from tkinter import messagebox
 
@@ -13,6 +14,10 @@ def show_shopping_cart(win):
 
     if not win.shopping_cart:
         messagebox.showinfo("Shopping cart is empty", "No products in cart")
+    if UserManager.current_user['is_vip']:
+        # sum of prices of all products in the cart
+        total = sum([float(product.get_unit_price()) for product in win.shopping_cart])
+        win.set_total_sum(total*0.9)
 
     wm.toggle_total_sum_label(win.total_sum_label, "on", win)
     wm.show_widget(win.remove_from_cart_button, 250, 450)
