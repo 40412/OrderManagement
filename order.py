@@ -4,11 +4,12 @@
 
 from user import UserManager
 
-
+# Initialize the Order object with a list of order items.
 class Order:
     def __init__(self, order_items):
         self.order_items = order_items
 
+# Save the order details to a text file named "order.txt"
     def save_order(self):
         with open("order.txt", "a") as file: # The file is opened in append mode, so the previous orders are not overwritten
             file.write("\n\nOrder details:\n")
@@ -16,7 +17,7 @@ class Order:
             for index, item in enumerate(self.order_items, start=1):
                 file.write(f"Product {index}: {item.get_product_name()} - Price: {item.get_unit_price()}$\n")
             file.write(f"Total sum: ${self.calculate_total_sum()}")
-
+# Calculate the total sum of the order
     def calculate_total_sum(self):
         return round(sum(float(item.get_unit_price()) for item in self.order_items), 2)
 

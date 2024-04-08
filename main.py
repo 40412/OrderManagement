@@ -142,7 +142,8 @@ class MyWindow(ttk.Frame):
 
     def get_total_sum(self):
         return self.total_sum
-
+    
+# Save the order and display a message indicating successful saving.
     def save_order(self):
         order = Order(self.shopping_cart) 
         order.save_order()  
@@ -157,6 +158,7 @@ class MyWindow(ttk.Frame):
         else:
             self.save_order()
 
+# Generate an order based on selected products.
     def generate_order(self):
         selected_products = Product.get_selected_products()
         return selected_products
