@@ -1,4 +1,0 @@
-Order details:
-Product 1: Electric Kettle - Price: 29.99$
-Product 2: Lawn Mower - Electric - Price: 199.99$
-Total sum: $229.98000000000002
