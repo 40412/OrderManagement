@@ -104,7 +104,7 @@ class MyWindow(ttk.Frame):
         self.search_button.place(x=250, y=20)
         self.add_button = ttk.Button(win, text="Add to Shopping Cart", 
                                     command=lambda: add_cart.add_button_clicked(self))
-        self.add_button.place(x=300, y=600)
+        self.add_button.place(x=200, y=600)
         self.shopping_cart = []
         self.sort_button = ttk.Button(win, text="Sort",
                                      command=lambda: pf.sort_product_list(self))
@@ -144,8 +144,8 @@ class MyWindow(ttk.Frame):
         return self.total_sum
 
     def save_order(self):
-        order = Order(self.shopping_cart)  # Luo tilauksen olio ja välitä sille ostoskori
-        order.save_order()  # Tallenna tilaus
+        order = Order(self.shopping_cart) 
+        order.save_order()  
         messagebox.showinfo("Order Saved", "Your order has been saved successfully!")
 
     def save_order_and_show_message(self):

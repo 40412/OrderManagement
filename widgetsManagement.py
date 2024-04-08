@@ -19,7 +19,7 @@ def show_widget(widget, x_pos, y_pos):
 
 def toggle_total_sum_label(label, onoff, win):
     if onoff == "on":
-        label.place(x=250, y=500)
+        label.place(x=180, y=500)
         label.config(text="Total sum: $" + str(win.total_sum))
     elif onoff == "off":
         label.place_forget()
